@@ -19,7 +19,7 @@ function mmread(filename::ASCIIString, infoonly::Bool)
     if head1 != "matrix"
         error("This seems to be a MatrixMarket $head1 file, not a MatrixMarket matrix file")
     end
-    if field != "real" error("non-float fields not yet allowed") end
+    #if field != "real" error("non-float fields not yet allowed") end
 
     ll   = readline(mmfile)         # Read through comments, ignoring them
     while length(ll) > 0 && ll[1] == '%' ll = readline(mmfile) end
@@ -36,7 +36,8 @@ function mmread(filename::ASCIIString, infoonly::Bool)
             flds = split(readline(mmfile))
             rr[i] = int32(flds[1])
             cc[i] = int32(flds[2])
-            xx[i] = float64(flds[3])
+            #xx[i] = float64(flds[3])
+            xx[i] = 1.0
         end
         return sparse(rr, cc, xx, rows, cols)
     end
